@@ -185,6 +185,7 @@ return [
 	__( 'Select the user roles who can see and manage all projects.', 'wedevs-project-manager' ),
 	__( 'Project Creation Capability', 'wedevs-project-manager' ),
 	__( 'Select the user roles who can create projects.', 'wedevs-project-manager' ),
+	__( 'Open links in new window', 'wedevs-project-manager' ),
 	__( 'From Email', 'wedevs-project-manager' ),
 	__( 'Links in the Email', 'wedevs-project-manager' ),
 	__( 'Link to Backend', 'wedevs-project-manager' ),

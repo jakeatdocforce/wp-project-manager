@@ -82,6 +82,22 @@
                                     </fieldset>
                                 </td>
                             </tr>
+                            <tr>
+                <th scope="row">
+                    <label for="pm_general[links]">{{ __('Open links in new window', 'wedevs-project-manager' ) }}</label>
+                </th>
+                <td>
+
+                    <fieldset>
+                        <label>
+                            <input type="checkbox" class="checkbox" v-model="open_links_new_window" >
+                            {{ __('Open links in new window', 'wedevs-project-manager' ) }}
+                        </label>
+                        
+                        <p class="description"></p>
+                    </fieldset>
+                </td>
+            </tr>
                         </tbody>
                     </table> 
 
@@ -112,6 +128,7 @@ export default {
             roles: PM_Vars.roles,
             managing_capability: this.getSettings('managing_capability', []),
             project_create_capability: this.getSettings('project_create_capability', []),
+            open_links_new_window: this.getSettings('open_links_new_window', true),
             show_spinner: false,
             save_changes: __( 'Save Changes', 'wedevs-project-manager')
         }
@@ -133,7 +150,8 @@ export default {
   
                 complete_tasks_per_page: this.complete_tasks_per_page,
                 managing_capability: this.managing_capability,
-                project_create_capability: this.project_create_capability
+                project_create_capability: this.project_create_capability,
+                open_links_new_window: self.open_links_new_window
             };
             data = pm_apply_filters('setting_data', data);
             

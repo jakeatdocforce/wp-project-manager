@@ -580,12 +580,42 @@ function pm_tb_prefix() {
 function pm_get_content( $content ) {
     $content = apply_filters( 'pm_get_content', $content );
 
+    $open_new_window = pm_get_settings( 'open_links_new_window' );
+    if ($open_new_window === "true" ) {
+        return pm_filter_content_url_new_tab($content);
+    }
+
     return $content;
 }
 
 function pm_filter_content_url( $content ) {
     $content = apply_filters( 'pm_get_content_url', $content );
     
+    return $content;
+}
+
+function pm_filter_content_url_new_tab( $content ) {
+
+    $pattern = '/<a(.*?)?href=[\'"]?[\'"]?(.*?)?>/i';
+
+    $content = preg_replace_callback($pattern, function($m){
+        $tpl = array_shift($m);
+        $hrf = isset($m[1]) ? $m[1] : null;
+
+        if ( preg_match('/target=[\'"]?(.*?)[\'"]?/i', $tpl) ) {
+            return $tpl;
+        }
+
+        if ( trim($hrf) && 0 === strpos($hrf, '#') ) {
+            return $tpl; // anchor links
+        }
+
+        return preg_replace_callback('/href=/i', function($m2){
+            return sprintf('target="_blank" %s', array_shift($m2));
+        }, $tpl);
+
+    }, $content);
+
     return $content;
 }
 
